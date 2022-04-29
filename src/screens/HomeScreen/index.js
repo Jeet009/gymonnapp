@@ -7,10 +7,12 @@ import {
 } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import BannerComponent from '../../components/BannerComponent';
+import IconComponent from '../../components/IconComponent';
 
 const HomeScreen = () => {
   return (
-    <View style={styles.homeRoot}>
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <View style={styles.topBg}>
         <ImageBackground
           source={{
@@ -44,23 +46,27 @@ const HomeScreen = () => {
           </View>
         </ImageBackground>
       </View>
-      <ScrollView style={styles.home}>
-        <Text>HomeScreen</Text>
-      </ScrollView>
-    </View>
+      <View style={styles.home}>
+        <BannerComponent />
+      </View>
+      <View style={styles.iconContainer}>
+        <IconComponent />
+        <IconComponent />
+        <IconComponent />
+        <IconComponent />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  homeRoot: {
-    height: '100%',
-  },
   topBg: {
-    height: '40%',
+    height: 300,
   },
   home: {
-    height: '60%',
+    flex: 1,
     backgroundColor: '#1a1a1a',
+    padding: '5%',
   },
   img: {
     height: '100%',
@@ -70,10 +76,12 @@ const styles = StyleSheet.create({
   },
   whiteText: {
     color: 'white',
+    fontFamily: 'Poppins-Regular',
   },
   whiteTextL: {
     color: 'white',
     fontSize: 20,
+    // fontFamily: 'Poppins-Regular',
   },
   avatar: {
     height: 50,
@@ -87,12 +95,19 @@ const styles = StyleSheet.create({
   whiteTextC: {
     color: 'white',
     textTransform: 'uppercase',
+    fontFamily: 'Poppins-Regular',
   },
   whiteTextSayer: {
     color: 'white',
     textTransform: 'uppercase',
     marginLeft: 'auto',
     marginTop: 30,
+  },
+  iconContainer: {
+    backgroundColor: '#1a1a1a',
+    padding: '5%',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
 });
 export default HomeScreen;
