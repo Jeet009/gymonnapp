@@ -1,21 +1,24 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const BadgeComponent = () => {
+const BadgeComponent = ({text, color}) => {
   return (
     <View>
       <Text
         style={{
-          backgroundColor: '#441b00',
+          backgroundColor: color,
           color: 'white',
           // width: '28%',
-          padding: '2%',
-          borderRadius: 5,
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          paddingTop: '1%',
+          paddingBottom: '1%',
+          borderRadius: 3,
           alignSelf: 'flex-start',
           fontSize: 10,
           fontFamily: 'Poppins-Bold',
         }}>
-        GYMONN
+        {text}
       </Text>
     </View>
   );

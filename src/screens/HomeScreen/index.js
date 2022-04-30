@@ -9,6 +9,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BannerComponent from '../../components/BannerComponent';
 import IconComponent from '../../components/IconComponent';
+import WithBackgroundImageComponent from '../../components/ProductComponent/WithBackgroundImageComponent';
 
 const HomeScreen = () => {
   return (
@@ -46,14 +47,34 @@ const HomeScreen = () => {
           </View>
         </ImageBackground>
       </View>
-      <View style={styles.home}>
-        <BannerComponent />
+      <View style={styles.homePadding}>
+        <BannerComponent
+          imgUri="https://images.pexels.com/photos/3094230/pexels-photo-3094230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          title="Get Subscription Now"
+          desc="In publishing and graphic design, Lorem ipsum is a placeholder."
+          btnText="Join Now"
+        />
       </View>
       <View style={styles.iconContainer}>
         <IconComponent />
         <IconComponent />
         <IconComponent />
         <IconComponent />
+      </View>
+      <View style={styles.banner}>
+        <BannerComponent
+          imgUri="https://images.pexels.com/photos/2729899/pexels-photo-2729899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          title="TIRED OF RUNNING ?"
+          desc="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate."
+          btnText="Read More"
+        />
+      </View>
+      <View style={styles.homePadding}>
+        <Text style={styles.whiteTextL}>Near By Gym</Text>
+        <View style={styles.listContainer}>
+          <WithBackgroundImageComponent />
+          <WithBackgroundImageComponent />
+        </View>
       </View>
     </ScrollView>
   );
@@ -63,7 +84,7 @@ const styles = StyleSheet.create({
   topBg: {
     height: 300,
   },
-  home: {
+  homePadding: {
     flex: 1,
     backgroundColor: '#1a1a1a',
     padding: '5%',
@@ -81,7 +102,6 @@ const styles = StyleSheet.create({
   whiteTextL: {
     color: 'white',
     fontSize: 20,
-    // fontFamily: 'Poppins-Regular',
   },
   avatar: {
     height: 50,
@@ -108,6 +128,14 @@ const styles = StyleSheet.create({
     padding: '5%',
     justifyContent: 'space-between',
     flexDirection: 'row',
+  },
+  banner: {
+    flex: 1,
+  },
+  listContainer: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginTop: 15,
   },
 });
 export default HomeScreen;

@@ -9,24 +9,25 @@ import {
 import React from 'react';
 import BadgeComponent from '../BadgeComponent';
 
-const BannerComponent = () => {
+const BannerComponent = ({title, desc, btnText, imgUri}) => {
   return (
     <ImageBackground
       style={styles.bannerContainer}
       source={{
-        uri: 'https://images.pexels.com/photos/3094230/pexels-photo-3094230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        uri: imgUri,
       }}
       resizeMode="cover"
       borderRadius={5}
       blurRadius={3}>
       <View style={styles.imgOverlay}>
-        <BadgeComponent />
-        <Text style={styles.bannerTitle}>Get Subscription Now</Text>
+        <BadgeComponent text="GYMONN" color="#441b00" />
+        <Text style={styles.bannerTitle}>{title}</Text>
+        <Text style={styles.whiteTextC}>{desc}</Text>
         <TouchableOpacity
           style={styles.btn}
           onPress={() => console.log('Open Subscription Page')}>
           <Text style={{fontFamily: 'Poppins-Medium', color: 'black'}}>
-            Join Now
+            {btnText}
           </Text>
         </TouchableOpacity>
       </View>
@@ -49,8 +50,8 @@ const styles = StyleSheet.create({
   bannerTitle: {
     fontSize: 30,
     color: 'white',
-    marginTop: 6,
-    marginBottom: 6,
+    marginTop: 2,
+    marginBottom: 2,
     fontFamily: 'Poppins-Regular',
   },
   btn: {
@@ -61,6 +62,11 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 6,
     paddingBottom: 6,
+  },
+  whiteTextC: {
+    color: 'white',
+    textTransform: 'uppercase',
+    fontFamily: 'Poppins-Regular',
   },
 });
 
