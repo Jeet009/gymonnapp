@@ -10,8 +10,13 @@ import {
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BannerComponent from '../../components/BannerComponent';
+import {useNavigation} from '@react-navigation/native';
 
 const ProductDetail = () => {
+  const navigation = useNavigation();
+  const handleNavigation = () => {
+    navigation.navigate('MembershipForm');
+  };
   return (
     <ImageBackground
       style={styles.container}
@@ -80,10 +85,10 @@ const ProductDetail = () => {
               design.
             </Text>
           </View>
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity style={styles.btn} onPress={handleNavigation}>
             <Text style={styles.btnText}>BOOK A TRIAL</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnDark}>
+          <TouchableOpacity style={styles.btnDark} onPress={handleNavigation}>
             <Text style={styles.btnTextW}>GET A MEMBERSHIP FOR ONE MONTH</Text>
           </TouchableOpacity>
         </View>

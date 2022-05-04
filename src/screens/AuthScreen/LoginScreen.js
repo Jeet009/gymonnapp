@@ -7,29 +7,58 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useContext, useState} from 'react';
+import {AuthContext} from '../../context/AuthContext';
+import {LoadingContext} from '../../context/LoadingContext';
+import LoadingComponent from '../../components/LoadingComponent.js';
 
 const LoginScreen = () => {
-  return (
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [code, setCode] = useState();
+  const {handleAuth, confirm, handleOtp} = useContext(AuthContext);
+  const {isLoading} = useContext(LoadingContext);
+  return isLoading ? (
+    <LoadingComponent title="Authenticating ..." />
+  ) : (
     <ImageBackground
       style={styles.container}
       source={{
         uri: 'https://images.pexels.com/photos/2468339/pexels-photo-2468339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       }}
       resizeMode="cover">
-      <View style={styles.overlay}>
-        <View>
-          <Text style={styles.whiteTextL}>Gymonn</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Phone Number"
-            keyboardType="numeric"
-          />
+      {confirm ? (
+        <View style={styles.overlay}>
+          <View>
+            <Text style={styles.whiteTextS}>OTP VERIFICATION</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter OTP"
+              keyboardType="numeric"
+              onChangeText={text => setCode(text)}
+            />
+          </View>
+          <TouchableOpacity style={styles.btn} onPress={() => handleOtp(code)}>
+            <Text style={styles.btnText}>Confirm</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>Let's Get Started</Text>
-        </TouchableOpacity>
-      </View>
+      ) : (
+        <View style={styles.overlay}>
+          <View>
+            <Text style={styles.whiteTextL}>Gymonn</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Phone Number"
+              keyboardType="numeric"
+              onChangeText={text => setPhoneNumber(text)}
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => handleAuth(phoneNumber)}>
+            <Text style={styles.btnText}>Let's Get Started</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </ImageBackground>
   );
 };
@@ -46,7 +75,13 @@ const styles = StyleSheet.create({
   },
   whiteTextL: {
     color: 'white',
-    fontSize: Dimensions.get('window').width / 5,
+    fontSize: Dimensions.get('window').width / 5.5,
+    fontFamily: 'Poppins-Medium',
+    textTransform: 'uppercase',
+  },
+  whiteTextS: {
+    color: 'white',
+    fontSize: Dimensions.get('window').width / 12,
     fontFamily: 'Poppins-Medium',
     textTransform: 'uppercase',
   },

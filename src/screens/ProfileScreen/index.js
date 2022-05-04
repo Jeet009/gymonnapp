@@ -5,11 +5,13 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import BadgeComponent from '../../components/BadgeComponent';
 import IconComponent from '../../components/IconComponent';
+import {AuthContext} from '../../context/AuthContext';
 
 const ProfileScreen = () => {
+  const {handleLogout} = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -62,7 +64,7 @@ const ProfileScreen = () => {
         <IconComponent title="MemberS." iconName="bolt" />
         <IconComponent title="Contact" iconName="whatsapp" />
         <IconComponent title="Feedback" iconName="star" />
-        <IconComponent title="Logout" iconName="sign-out" />
+        <IconComponent title="Logout" iconName="sign-out" func={handleLogout} />
       </View>
     </View>
   );

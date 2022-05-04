@@ -1,11 +1,18 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
 
-const IconComponent = ({title, iconName}) => {
+const IconComponent = ({title, iconName, route, func}) => {
+  const navigation = useNavigation();
+  const handleNavigation = () => {
+    navigation.navigate(route);
+  };
   return (
     <View>
-      <TouchableOpacity style={styles.iconContainer}>
+      <TouchableOpacity
+        style={styles.iconContainer}
+        onPress={route ? handleNavigation : func}>
         <Icon name={iconName} size={35} color="#ffae7a" />
       </TouchableOpacity>
       {title && (

@@ -8,10 +8,15 @@ import {
 import React from 'react';
 import BadgeComponent from '../BadgeComponent';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
 
-const WithBackgroundImageComponent = () => {
+const WithBackgroundImageComponent = ({route}) => {
+  const navigation = useNavigation();
+  const handleNavigation = () => {
+    navigation.navigate(route);
+  };
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handleNavigation}>
       <ImageBackground
         style={styles.bannerContainer}
         source={{

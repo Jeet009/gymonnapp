@@ -4,16 +4,31 @@ import {
   StyleSheet,
   View,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BannerComponent from '../../components/BannerComponent';
 import IconComponent from '../../components/IconComponent';
 import WithBackgroundImageComponent from '../../components/ProductComponent/WithBackgroundImageComponent';
+import {ScrollContext} from '../../context/ScrollContext';
+import {LocationContext} from '../../context/LocationContext';
 
 const HomeScreen = () => {
+  const {handleScrollingState} = useContext(ScrollContext);
+  const {location} = useContext(LocationContext);
+
+  console.log(location);
+
+  const handleScroll = event => {
+    if (event.nativeEvent.contentOffset.y <= 19) {
+      handleScrollingState(false);
+    } else if (event.nativeEvent.contentOffset.y >= 20) {
+      handleScrollingState(true);
+    }
+  };
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    <ScrollView contentContainerStyle={{flexGrow: 1}} onScroll={handleScroll}>
       <View style={styles.topBg}>
         <ImageBackground
           source={{
@@ -23,20 +38,24 @@ const HomeScreen = () => {
           blurRadius={3}
           style={styles.img}>
           <View style={styles.topTextContainer}>
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
               <Icon name="map-marker" size={45} color="#ffae7a" />
               <View style={{marginLeft: '3%'}}>
                 <Text style={styles.whiteTextL}>Kolkata</Text>
                 <Text style={styles.whiteText}>WB, INDIA</Text>
               </View>
-              <ImageBackground
-                source={{
-                  uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
-                }}
-                resizeMode="cover"
-                borderRadius={50}
-                style={styles.avatar}></ImageBackground>
-            </View>
+              <TouchableOpacity
+                style={styles.avatar}
+                onPress={handleNavigation}>
+                <ImageBackground
+                  source={{
+                    uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
+                  }}
+                  resizeMode="cover"
+                  borderRadius={50}
+                  style={styles.avatar}></ImageBackground>
+              </TouchableOpacity>
+            </View> */}
             <View style={styles.quoteContainer}>
               <Text style={styles.whiteTextC}>
                 Motivation is what gets you started. Habit is what keeps you
@@ -56,10 +75,10 @@ const HomeScreen = () => {
         />
       </View>
       <View style={styles.iconContainer}>
-        <IconComponent />
-        <IconComponent />
-        <IconComponent />
-        <IconComponent />
+        <IconComponent route="ProductList" />
+        <IconComponent route="ProductList" />
+        <IconComponent route="ProductList" />
+        <IconComponent route="ProductList" />
       </View>
       <View style={styles.banner}>
         <BannerComponent
@@ -72,8 +91,8 @@ const HomeScreen = () => {
       <View style={styles.homePadding}>
         <Text style={styles.whiteTextL}>Near By Gym</Text>
         <View style={styles.listContainer}>
-          <WithBackgroundImageComponent />
-          <WithBackgroundImageComponent />
+          <WithBackgroundImageComponent route="ProductDetails" />
+          <WithBackgroundImageComponent route="ProductDetails" />
         </View>
       </View>
     </ScrollView>

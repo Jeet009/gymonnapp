@@ -1,11 +1,22 @@
-import {View, Text, StyleSheet, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import BadgeComponent from '../BadgeComponent';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
 
-const WithSideImageComponent = ({title, location}) => {
+const WithSideImageComponent = ({title, location, route}) => {
+  const navigation = useNavigation();
+  const handleNavigation = () => {
+    navigation.navigate(route);
+  };
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handleNavigation}>
       <ImageBackground
         style={styles.img}
         source={{
@@ -30,7 +41,7 @@ const WithSideImageComponent = ({title, location}) => {
           <Icon name="star" size={15} color="#441b00" style={{marginLeft: 3}} />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

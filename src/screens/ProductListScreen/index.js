@@ -22,14 +22,17 @@ const ProductListScreen = () => {
         <WithSideImageComponent
           title="Logic Gym & Workout"
           location="WB, INDIA"
+          route="ProductDetails"
         />
         <WithSideImageComponent
           title="ABC Gym & Workout"
           location="WB, INDIA"
+          route="ProductDetails"
         />
         <WithSideImageComponent
           title="Fitness Workout House & Co"
           location="WB, INDIA"
+          route="ProductDetails"
         />
       </View>
     </View>
