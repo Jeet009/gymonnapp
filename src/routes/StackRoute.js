@@ -1,10 +1,11 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
@@ -14,7 +15,6 @@ import ProductListScreen from '../screens/ProductListScreen';
 import MembershipFormScreen from '../screens/FormScreen/MembershipFormScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import {useContext, useEffect} from 'react/cjs/react.production.min';
 import {ScrollContext} from '../context/ScrollContext';
 import {AuthContext} from '../context/AuthContext';
 import LoginScreen from '../screens/AuthScreen/LoginScreen';
@@ -22,11 +22,41 @@ import {LocationContext} from '../context/LocationContext';
 
 const Stack = createNativeStackNavigator();
 
+const FadeInView = props => {
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
+  return (
+    <Animated.View // Special animatable View
+      style={{
+        ...props.style,
+        opacity: fadeAnim, // Bind opacity to animated value
+      }}>
+      {props.children}
+    </Animated.View>
+  );
+};
+
 const Header = () => {
   const navigation = useNavigation();
   return (
-    <View
-      style={{flexDirection: 'row', backgroundColor: '#1a1a1a', padding: '5%'}}>
+    <FadeInView
+      style={{
+        flexDirection: 'row',
+        backgroundColor: '#1d1d1d',
+        padding: '5%',
+        position: 'absolute',
+        top: 0,
+        zIndex: 2,
+        width: '100%',
+      }}>
       <Icon name="map-marker" size={45} color="#ffae7a" />
       <View style={{marginLeft: '3%'}}>
         <Text style={styles.whiteTextL}>Kolkata</Text>
@@ -43,18 +73,18 @@ const Header = () => {
           borderRadius={50}
           style={styles.avatar}></ImageBackground>
       </TouchableOpacity>
-    </View>
+    </FadeInView>
   );
 };
 
 const Search = () => {
   return (
-    <View style={styles.searchContainer}>
+    <FadeInView style={styles.searchContainer}>
       <TouchableOpacity style={styles.searchForm}>
         <Icon name="search" size={20} color="#1a1a1a80" />
         <Text style={styles.searchText}>Find Your Near By Gyms ...</Text>
       </TouchableOpacity>
-    </View>
+    </FadeInView>
   );
 };
 
@@ -106,11 +136,16 @@ const StackRoute = () => {
 const styles = StyleSheet.create({
   whiteText: {
     color: 'white',
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-ExtraLight',
   },
   whiteTextL: {
     color: 'white',
+    fontFamily: 'Poppins-Light',
+    margin: 0,
     fontSize: 20,
+    lineHeight: 20 * 1.4,
+    height: 25,
+    textTransform: 'uppercase',
   },
   avatar: {
     height: 50,
@@ -130,7 +165,7 @@ const styles = StyleSheet.create({
     // borderColor: '',
   },
   searchContainer: {
-    padding: 10,
+    padding: 20,
     backgroundColor: '#1a1a1a',
   },
   searchText: {

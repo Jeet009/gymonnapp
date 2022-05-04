@@ -31,7 +31,7 @@ const WithSideImageComponent = ({title, location, route}) => {
       <View style={styles.textContainer}>
         <BadgeComponent text="VERIFIED" color="green" />
         <Text style={styles.whiteTextL}>
-          {title.length > 20 ? `${title.substring(0, 15)} ...` : title}
+          {title.length > 18 ? `${title.substring(0, 15)} ...` : title}
         </Text>
         <Text style={styles.whiteText}>{location}</Text>
         <View style={styles.iconContainer}>

@@ -98,9 +98,6 @@ const ProductDetail = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    minHeight: '100%',
-  },
   overlay: {
     minHeight: '100%',
     backgroundColor: '#36150089',
@@ -124,7 +121,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: '#ffae7a',
-    width: Dimensions.get('window').width / 1.1,
+    // width: Dimensions.get('window').width / 1.1,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
@@ -133,12 +130,13 @@ const styles = StyleSheet.create({
   },
   btnDark: {
     backgroundColor: '#1a1a1a',
-    width: Dimensions.get('window').width / 1.1,
+    // width: Dimensions.get('window').width / 1.1,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 35,
     marginTop: 20,
+    marginBottom: 50,
   },
   btnText: {
     fontSize: 18,
@@ -146,7 +144,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   btnTextW: {
-    fontSize: 15,
+    fontSize: 12,
     color: 'white',
     fontFamily: 'Poppins-Medium',
   },

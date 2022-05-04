@@ -34,6 +34,7 @@ const LoginScreen = () => {
               style={styles.input}
               placeholder="Enter OTP"
               keyboardType="numeric"
+              placeholderTextColor="#1d1d1d"
               onChangeText={text => setCode(text)}
             />
           </View>
@@ -49,6 +50,7 @@ const LoginScreen = () => {
               style={styles.input}
               placeholder="Enter Phone Number"
               keyboardType="numeric"
+              placeholderTextColor="#1d1d1d"
               onChangeText={text => setPhoneNumber(text)}
             />
           </View>
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5,
     fontSize: 15,
+    color: '#1d1d1d',
   },
   btn: {
     backgroundColor: '#ffae7a',

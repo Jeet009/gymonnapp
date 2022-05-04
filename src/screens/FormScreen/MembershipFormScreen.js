@@ -9,30 +9,53 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 const MembershipFormScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <ScrollView style={styles.container}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View>
           <Text style={styles.whiteTextL}>MEMBERSHIP</Text>
         </View>
-        <ImageBackground
-          source={{
-            uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
-          }}
-          resizeMode="cover"
-          borderRadius={50}
-          style={styles.avatar}></ImageBackground>
+        <TouchableOpacity
+          style={styles.avatar}
+          onPress={() => navigation.navigate('Profile')}>
+          <ImageBackground
+            source={{
+              uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
+            }}
+            resizeMode="cover"
+            borderRadius={50}
+            style={styles.avatar}></ImageBackground>
+        </TouchableOpacity>
       </View>
 
       <View style={{marginTop: 30}}>
         <Text style={styles.whiteText}>Member Detaills</Text>
         <Text style={styles.whiteText}>+91 8001268005</Text>
-        <TextInput style={styles.input} placeholder="Enter Name" />
-        <TextInput style={styles.input} placeholder="Enter Email" />
-        <TextInput style={styles.input} placeholder="Enter Pincode" />
-        <TextInput style={styles.input} placeholder="Enter Address" />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Name"
+          placeholderTextColor="#1d1d1d"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Email"
+          placeholderTextColor="#1d1d1d"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Pincode"
+          placeholderTextColor="#1d1d1d"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Address"
+          placeholderTextColor="#1d1d1d"
+        />
       </View>
 
       <View style={{marginTop: 30}}>
@@ -60,8 +83,16 @@ const MembershipFormScreen = () => {
 
       <View style={{marginTop: 30}}>
         <Text style={styles.whiteText}>Membership Detaills</Text>
-        <TextInput style={styles.input} placeholder="Choose Starting Date" />
-        <TextInput style={styles.input} placeholder="Choose Ending Date" />
+        <TextInput
+          style={styles.input}
+          placeholder="Choose Starting Date"
+          placeholderTextColor="#1d1d1d"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Choose Ending Date"
+          placeholderTextColor="#1d1d1d"
+        />
       </View>
 
       <View style={{marginTop: 30}}>
@@ -80,7 +111,7 @@ const MembershipFormScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: '100%',
+    // minHeight: '100%',
     padding: '3%',
   },
   whiteTextL: {
@@ -108,8 +139,9 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     padding: 10,
-    width: Dimensions.get('window').width / 1.1,
+    // width: Dimensions.get('window').width / 1.1,
     backgroundColor: 'white',
+    color: 'black',
     borderRadius: 5,
     fontSize: 15,
     borderLeftColor: '#1a1a1a',
@@ -129,7 +161,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: '#ffae7a',
-    width: Dimensions.get('window').width / 1.1,
+    // width: Dimensions.get('window').width / 1.1,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',

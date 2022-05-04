@@ -4,10 +4,8 @@ import {
   StyleSheet,
   View,
   ImageBackground,
-  TouchableOpacity,
 } from 'react-native';
 import React, {useContext} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import BannerComponent from '../../components/BannerComponent';
 import IconComponent from '../../components/IconComponent';
 import WithBackgroundImageComponent from '../../components/ProductComponent/WithBackgroundImageComponent';
@@ -18,15 +16,14 @@ const HomeScreen = () => {
   const {handleScrollingState} = useContext(ScrollContext);
   const {location} = useContext(LocationContext);
 
-  console.log(location);
-
   const handleScroll = event => {
-    if (event.nativeEvent.contentOffset.y <= 19) {
+    if (event.nativeEvent.contentOffset.y <= 25) {
       handleScrollingState(false);
-    } else if (event.nativeEvent.contentOffset.y >= 20) {
+    } else if (event.nativeEvent.contentOffset.y >= 25) {
       handleScrollingState(true);
     }
   };
+
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}} onScroll={handleScroll}>
       <View style={styles.topBg}>
@@ -101,7 +98,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   topBg: {
-    height: 300,
+    height: 310,
   },
   homePadding: {
     flex: 1,

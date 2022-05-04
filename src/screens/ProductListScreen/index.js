@@ -1,22 +1,36 @@
-import {View, Text, StyleSheet, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import WithSideImageComponent from '../../components/ProductComponent/WithSideImageComponent';
+import {useNavigation} from '@react-navigation/native';
 
 const ProductListScreen = () => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.topPosition}>
         <View>
           <Text style={styles.whiteTextL}>Gyms</Text>
           <Text style={styles.whiteText}>WB, INDIA</Text>
         </View>
-        <ImageBackground
-          source={{
-            uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
-          }}
-          resizeMode="cover"
-          borderRadius={50}
-          style={styles.avatar}></ImageBackground>
+        <TouchableOpacity
+          style={styles.avatar}
+          onPress={() => navigation.navigate('Profile')}>
+          <ImageBackground
+            source={{
+              uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
+            }}
+            resizeMode="cover"
+            borderRadius={50}
+            style={styles.avatar}></ImageBackground>
+        </TouchableOpacity>
       </View>
       <View style={styles.listContainer}>
         <WithSideImageComponent
@@ -35,7 +49,7 @@ const ProductListScreen = () => {
           route="ProductDetails"
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -44,6 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1a1a',
     padding: '5%',
     minHeight: '100%',
+    // paddingBottom: 150,
   },
   topPosition: {
     flexDirection: 'row',

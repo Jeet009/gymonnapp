@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#36150073',
   },
   bannerTitle: {
-    fontSize: 30,
+    fontSize: 25,
     color: 'white',
     marginTop: 2,
     marginBottom: 2,

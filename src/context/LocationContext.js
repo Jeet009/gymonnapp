@@ -6,13 +6,7 @@ import Geocoder from 'react-native-geocoding';
 export const LocationContext = createContext();
 
 export const LocationProvider = props => {
-  const [longitude, setLongitude] = useState();
-  const [latitude, setLatitude] = useState();
   const [location, setLocation] = useState();
-
-  //   useEffect(() => {
-  //     handleLocationDetails();
-  //   }, []);
 
   const handleLocationDetails = async () => {
     await PermissionsAndroid.request(
@@ -20,21 +14,21 @@ export const LocationProvider = props => {
     );
 
     if ('granted' === PermissionsAndroid.RESULTS.GRANTED) {
-      Geocoder.init('AIzaSyDp6i8ONAaaA3_16IBaYh08hK1E0O8ygf4');
+      //   Geocoder.init('AIzaSyDp6i8ONAaaA3_16IBaYh08hK1E0O8ygf4');
       Geolocation.getCurrentPosition(
         position => {
-          console.log(position.coords.latitude);
-          Geocoder.from({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          })
-            .then(json => {
-              var addressComponent = json.results[0].address_components[0];
-              console.log(addressComponent);
-              setLocation(addressComponent);
-              return addressComponent;
-            })
-            .catch(error => console.warn(error));
+          //   Geocoder.from({
+          //     latitude: position.coords.latitude,
+          //     longitude: position.coords.longitude,
+          //   })
+          //     .then(json => {
+          //       var addressComponent = json.results[0].address_components[0];
+          //       console.log(addressComponent);
+          //       setLocation(addressComponent);
+          //       return addressComponent;
+          //     })
+          //     .catch(error => console.warn(error));
+          console.log(position);
         },
         error => {
           alert('Please Manually Turn On Your Location ');
