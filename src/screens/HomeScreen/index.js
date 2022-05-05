@@ -72,10 +72,30 @@ const HomeScreen = () => {
         />
       </View>
       <View style={styles.iconContainer}>
-        <IconComponent route="ProductList" />
-        <IconComponent route="ProductList" />
-        <IconComponent route="ProductList" />
-        <IconComponent route="ProductList" />
+        <IconComponent
+          route="ProductList"
+          title="Gym"
+          iconName="heartbeat"
+          dbParam="gym"
+        />
+        <IconComponent
+          route="ProductList"
+          title="Yoga"
+          iconName="american-sign-language-interpreting"
+          dbParam="yoga"
+        />
+        <IconComponent
+          route="ProductList"
+          title="Zumba"
+          iconName="universal-access"
+          dbParam="zumba"
+        />
+        <IconComponent
+          route="ProductList"
+          title="Swim"
+          iconName="tint"
+          dbParam="swim"
+        />
       </View>
       <View style={styles.banner}>
         <BannerComponent

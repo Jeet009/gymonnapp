@@ -97,8 +97,14 @@ export const AuthProvider = props => {
     }
   };
 
-  const handleLogout = () => {
-    auth().signOut();
+  const handleLogout = async () => {
+    const token = await AsyncStorage.getItem('@token');
+    if (token) {
+      await AsyncStorage.removeItem('@token');
+      auth().signOut();
+    } else {
+      alert('Something went wrong. Reinstalling the app might fix it.');
+    }
   };
 
   const contextProps = {

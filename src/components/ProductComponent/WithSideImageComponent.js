@@ -33,7 +33,7 @@ const WithSideImageComponent = ({title, location, route}) => {
         <Text style={styles.whiteTextL}>
           {title.length > 18 ? `${title.substring(0, 15)} ...` : title}
         </Text>
-        <Text style={styles.whiteText}>{location}</Text>
+        <Text style={styles.whiteText}>{`${location}, INDIA`}</Text>
         <View style={styles.iconContainer}>
           <Icon name="star" size={15} color="#441b00" />
           <Icon name="star" size={15} color="#441b00" style={{marginLeft: 3}} />

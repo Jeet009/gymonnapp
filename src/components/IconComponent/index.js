@@ -3,10 +3,12 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
 
-const IconComponent = ({title, iconName, route, func}) => {
+const IconComponent = ({title, iconName, route, func, dbParam}) => {
   const navigation = useNavigation();
   const handleNavigation = () => {
-    navigation.navigate(route);
+    navigation.navigate(route, {
+      dbParam,
+    });
   };
   return (
     <View>

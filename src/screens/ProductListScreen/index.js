@@ -3,65 +3,123 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  ScrollView,
+  FlatList,
   TouchableOpacity,
+  SafeAreaView,
+  Animated,
 } from 'react-native';
-import React from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import WithSideImageComponent from '../../components/ProductComponent/WithSideImageComponent';
 import {useNavigation} from '@react-navigation/native';
+import {ServiceContext} from '../../context/ServiceContext';
+import {ScrollContext} from '../../context/ScrollContext';
+import {LoadingContext} from '../../context/LoadingContext';
+import LoadingComponent from '../../components/LoadingComponent.js';
 
-const ProductListScreen = () => {
+const ProductListScreen = ({route}) => {
+  const {dbParam} = route.params;
   const navigation = useNavigation();
 
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.topPosition}>
-        <View>
-          <Text style={styles.whiteTextL}>Gyms</Text>
-          <Text style={styles.whiteText}>WB, INDIA</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.avatar}
-          onPress={() => navigation.navigate('Profile')}>
-          <ImageBackground
-            source={{
-              uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
-            }}
-            resizeMode="cover"
-            borderRadius={50}
-            style={styles.avatar}></ImageBackground>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.listContainer}>
-        <WithSideImageComponent
-          title="Logic Gym & Workout"
-          location="WB, INDIA"
-          route="ProductDetails"
+  const [services, setServices] = useState();
+
+  const {fetchAllServicesByCoords} = useContext(ServiceContext);
+  const {isScrolling, handleScrollingState} = useContext(ScrollContext);
+  const {isLoading, handleLoadingState} = useContext(LoadingContext);
+
+  const handleScroll = event => {
+    if (event.nativeEvent.contentOffset.y <= 0) {
+      handleScrollingState(false);
+    } else if (event.nativeEvent.contentOffset.y >= 5) {
+      handleScrollingState(true);
+    }
+  };
+
+  const FadeInView = props => {
+    const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+
+    useEffect(() => {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }, [fadeAnim]);
+
+    return (
+      <Animated.View // Special animatable View
+        style={{
+          ...props.style,
+          opacity: fadeAnim, // Bind opacity to animated value
+        }}>
+        {props.children}
+      </Animated.View>
+    );
+  };
+
+  useEffect(() => {
+    fetchAllServicesByCoords(dbParam).then(res => {
+      setServices(res);
+      handleLoadingState(false);
+    });
+  }, []);
+
+  const renderItem = ({item}) => (
+    <WithSideImageComponent
+      title={item.name}
+      location={item.state}
+      route="ProductDetails"
+    />
+  );
+
+  return isLoading ? (
+    <LoadingComponent title={`Fetching ${dbParam} ...`} />
+  ) : (
+    <View style={styles.container}>
+      {!isScrolling && (
+        <FadeInView style={styles.topPosition}>
+          <View>
+            <Text style={styles.whiteTextL}>{dbParam}</Text>
+            <Text style={styles.whiteText}>WB, INDIA</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.avatar}
+            onPress={() => navigation.navigate('Profile')}>
+            <ImageBackground
+              source={{
+                uri: 'https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png',
+              }}
+              resizeMode="cover"
+              borderRadius={50}
+              style={styles.avatar}></ImageBackground>
+          </TouchableOpacity>
+        </FadeInView>
+      )}
+      {!isScrolling && <FadeInView style={styles.br}></FadeInView>}
+      <SafeAreaView style={styles.listContainer}>
+        <FlatList
+          data={services}
+          renderItem={renderItem}
+          keyExtractor={item => item._id}
+          onScroll={handleScroll}
         />
-        <WithSideImageComponent
-          title="ABC Gym & Workout"
-          location="WB, INDIA"
-          route="ProductDetails"
-        />
-        <WithSideImageComponent
-          title="Fitness Workout House & Co"
-          location="WB, INDIA"
-          route="ProductDetails"
-        />
-      </View>
-    </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1a1a1a',
-    padding: '5%',
-    minHeight: '100%',
-    // paddingBottom: 150,
+    backgroundColor: '#1d1d1d',
+    flex: 1,
   },
   topPosition: {
+    backgroundColor: '#1a1a1a',
+
     flexDirection: 'row',
+    position: 'absolute',
+    zIndex: 2,
+    width: '100%',
+    padding: '5%',
   },
   whiteText: {
     color: 'white',
@@ -71,6 +129,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 30,
     fontFamily: 'Poppins-Regular',
+    textTransform: 'capitalize',
   },
   avatar: {
     height: 80,
@@ -78,7 +137,14 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   listContainer: {
-    marginTop: 30,
+    // flex: 1,
+    padding: '2%',
+  },
+  list: {
+    paddingTop: 120,
+  },
+  br: {
+    height: 120,
   },
 });
 export default ProductListScreen;
