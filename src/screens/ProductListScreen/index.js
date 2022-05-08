@@ -29,7 +29,7 @@ const ProductListScreen = ({route}) => {
   const handleScroll = event => {
     if (event.nativeEvent.contentOffset.y <= 0) {
       handleScrollingState(false);
-    } else if (event.nativeEvent.contentOffset.y >= 5) {
+    } else if (event.nativeEvent.contentOffset.y >= 15) {
       handleScrollingState(true);
     }
   };
@@ -67,6 +67,8 @@ const ProductListScreen = ({route}) => {
     <WithSideImageComponent
       title={item.name}
       location={item.state}
+      imgUrl={item.list_img_url}
+      data={item}
       route="ProductDetails"
     />
   );
@@ -75,7 +77,7 @@ const ProductListScreen = ({route}) => {
     <LoadingComponent title={`Fetching ${dbParam} ...`} />
   ) : (
     <View style={styles.container}>
-      {!isScrolling && (
+      {isScrolling && (
         <FadeInView style={styles.topPosition}>
           <View>
             <Text style={styles.whiteTextL}>{dbParam}</Text>
@@ -94,7 +96,7 @@ const ProductListScreen = ({route}) => {
           </TouchableOpacity>
         </FadeInView>
       )}
-      {!isScrolling && <FadeInView style={styles.br}></FadeInView>}
+      {/* {!isScrolling && <FadeInView style={styles.br}></FadeInView>} */}
       <SafeAreaView style={styles.listContainer}>
         <FlatList
           data={services}

@@ -10,17 +10,19 @@ import BadgeComponent from '../BadgeComponent';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
 
-const WithSideImageComponent = ({title, location, route}) => {
+const WithSideImageComponent = ({title, location, route, imgUrl, data}) => {
   const navigation = useNavigation();
   const handleNavigation = () => {
-    navigation.navigate(route);
+    navigation.navigate(route, {
+      data,
+    });
   };
   return (
     <TouchableOpacity style={styles.container} onPress={handleNavigation}>
       <ImageBackground
         style={styles.img}
         source={{
-          uri: 'https://images.pexels.com/photos/2468339/pexels-photo-2468339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          uri: imgUrl,
         }}
         resizeMode="contain"
         borderRadius={5}
@@ -51,6 +53,8 @@ const styles = StyleSheet.create({
     height: '100%',
     margin: '0.2%',
     justifyContent: 'flex-end',
+    backgroundColor: '#1d1d1d',
+    borderRadius: 5,
   },
   container: {
     height: 150,

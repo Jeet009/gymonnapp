@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   TextInput,
+  StatusBar,
   TouchableOpacity,
 } from 'react-native';
 import React, {useContext, useState} from 'react';
@@ -26,6 +27,8 @@ const LoginScreen = () => {
         uri: 'https://images.pexels.com/photos/2468339/pexels-photo-2468339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       }}
       resizeMode="cover">
+      <StatusBar backgroundColor="#36150073" barStyle="light-content" />
+
       {confirm ? (
         <View style={styles.overlay}>
           <View>

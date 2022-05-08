@@ -9,13 +9,16 @@ import {
 } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import BannerComponent from '../../components/BannerComponent';
 import {useNavigation} from '@react-navigation/native';
 
-const ProductDetail = () => {
+const ProductDetail = ({route}) => {
+  const {data} = route.params;
+
   const navigation = useNavigation();
   const handleNavigation = () => {
-    navigation.navigate('MembershipForm');
+    navigation.navigate('MembershipForm', {
+      data,
+    });
   };
   return (
     <ImageBackground
@@ -27,12 +30,9 @@ const ProductDetail = () => {
       blurRadius={5}>
       <ScrollView>
         <View style={styles.overlay}>
-          <Text style={styles.whiteTextL}>ABC Gym</Text>
-          <Text style={styles.whiteText}>WB, INDIA</Text>
-          <Text style={styles.whiteTextC}>
-            In publishing and graphic design, Lorem ipsum is a placeholder text
-            commonly used to demonstrate.
-          </Text>
+          <Text style={styles.whiteTextL}>{data.name}</Text>
+          <Text style={styles.whiteText}>{data.state}, INDIA</Text>
+          <Text style={styles.whiteTextC}>{data.desc}</Text>
           <View style={styles.iconContainer}>
             <Icon name="star" size={15} color="#ffae7a" />
             <Icon
@@ -57,33 +57,82 @@ const ProductDetail = () => {
           <ImageBackground
             style={styles.imgLong}
             source={{
-              uri: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+              uri: data.detail_img_obj.imgOne,
             }}
+            borderRadius={5}
             resizeMode="cover"></ImageBackground>
           <View style={styles.imgContainer}>
             <ImageBackground
               style={styles.imgHeight}
               source={{
-                uri: 'https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+                uri: data.detail_img_obj.imgTwo,
               }}
+              borderRadius={5}
               resizeMode="cover"></ImageBackground>
             <ImageBackground
               style={styles.imgHeight}
               source={{
-                uri: 'https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+                uri: data.detail_img_obj.imgThree,
               }}
+              borderRadius={5}
               resizeMode="cover"></ImageBackground>
           </View>
           <View>
-            <Text style={styles.whiteTextC}>
-              In publishing and graphic design, Lorem ipsum is a placeholder
-              text commonly used to demonstrate.
-            </Text>
-            <Text style={styles.whiteTextC}>
-              In publishing and graphic design, Lorem ipsum is a placeholder
-              text commonly used to demonstrate.In publishing and graphic
-              design.
-            </Text>
+            <Text style={styles.whiteTextC}>{data.details}</Text>
+          </View>
+          <View style={styles.iconList}>
+            <View style={styles.iconMaker}>
+              <Icon
+                name={data.separate_washroom ? 'check-circle' : 'times-circle'}
+                size={20}
+                color="#ffae7a"
+              />
+              <Text style={styles.iconTextW}>Separate Washroom</Text>
+            </View>
+            <View style={styles.iconMaker}>
+              <Icon
+                name={data.music_player ? 'check-circle' : 'times-circle'}
+                size={20}
+                color="#ffae7a"
+              />
+              <Text style={styles.iconTextW}>Music Player</Text>
+            </View>
+          </View>
+          <View style={styles.iconList}>
+            <View style={styles.iconMaker}>
+              <Icon
+                name={data.power_backup ? 'check-circle' : 'times-circle'}
+                size={20}
+                color="#ffae7a"
+              />
+              <Text style={styles.iconTextW}>Power Backup</Text>
+            </View>
+            <View style={styles.iconMaker}>
+              <Icon
+                name={data.parking ? 'check-circle' : 'times-circle'}
+                size={20}
+                color="#ffae7a"
+              />
+              <Text style={styles.iconTextW}>Parking</Text>
+            </View>
+          </View>
+          <View style={styles.iconList}>
+            <View style={styles.iconMaker}>
+              <Icon
+                name={data.trainer ? 'check-circle' : 'times-circle'}
+                size={20}
+                color="#ffae7a"
+              />
+              <Text style={styles.iconTextW}>Trainer</Text>
+            </View>
+            <View style={styles.iconMaker}>
+              <Icon
+                name={data.daily_sanitization ? 'check-circle' : 'times-circle'}
+                size={20}
+                color="#ffae7a"
+              />
+              <Text style={styles.iconTextW}>Daily Senitizaion</Text>
+            </View>
           </View>
           <TouchableOpacity style={styles.btn} onPress={handleNavigation}>
             <Text style={styles.btnText}>BOOK A TRIAL</Text>
@@ -100,12 +149,13 @@ const ProductDetail = () => {
 const styles = StyleSheet.create({
   overlay: {
     minHeight: '100%',
-    backgroundColor: '#36150089',
-    padding: '5%',
+    backgroundColor: '#1d1d1d98',
+    padding: '3%',
   },
   whiteTextL: {
     color: 'white',
-    fontSize: Dimensions.get('window').width / 8,
+    fontSize: 35,
+    // fontSize: Dimensions.get('window').width ,
     fontFamily: 'Poppins-Regular',
     marginTop: 25,
   },
@@ -118,6 +168,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textTransform: 'uppercase',
     fontFamily: 'Poppins-Regular',
+    fontSize: 12,
   },
   btn: {
     backgroundColor: '#ffae7a',
@@ -155,15 +206,40 @@ const styles = StyleSheet.create({
     minHeight: 180,
     marginTop: 15,
     marginBottom: 5,
+    backgroundColor: '#666666',
+    borderRadius: 5,
   },
   imgHeight: {
     minHeight: 200,
     width: Dimensions.get('window').width / 2.3,
+    borderRadius: 10,
+    backgroundColor: '#666666',
   },
   imgContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
+  },
+  iconMaker: {
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#666666',
+    padding: 5,
+    borderRadius: 5,
+    width: '49%',
+  },
+  iconTextW: {
+    fontSize: 10,
+    color: 'white',
+    fontFamily: 'Poppins-Medium',
+    marginLeft: 5,
+    textTransform: 'uppercase',
+  },
+  iconList: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
   },
 });
 

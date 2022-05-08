@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Animated,
+  StatusBar,
 } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
@@ -80,6 +81,8 @@ const Header = () => {
 const Search = () => {
   return (
     <FadeInView style={styles.searchContainer}>
+      <StatusBar backgroundColor="#1d1d1d" barStyle="light-content" />
+
       <TouchableOpacity style={styles.searchForm}>
         <Icon name="search" size={20} color="#1a1a1a80" />
         <Text style={styles.searchText}>Find Your Near By Gyms ...</Text>
@@ -117,8 +120,30 @@ const StackRoute = () => {
                 ),
               }}
             />
-            <Stack.Screen name="ProductList" component={ProductListScreen} />
-            <Stack.Screen name="ProductDetails" component={ProductDetail} />
+            <Stack.Screen
+              name="ProductList"
+              component={ProductListScreen}
+              options={{
+                header: () => (
+                  <>
+                    {!isScrolling && <Header />}
+                    <Search />
+                  </>
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="ProductDetails"
+              component={ProductDetail}
+              options={{
+                header: () => (
+                  <>
+                    {!isScrolling && <Header />}
+                    <Search />
+                  </>
+                ),
+              }}
+            />
             <Stack.Screen
               name="MembershipForm"
               component={MembershipFormScreen}
