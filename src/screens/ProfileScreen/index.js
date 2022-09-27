@@ -4,16 +4,26 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import BadgeComponent from '../../components/BadgeComponent';
 import IconComponent from '../../components/IconComponent';
 import {AuthContext} from '../../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileScreen = () => {
-  const {handleLogout} = useContext(AuthContext);
+  const {handleLogout, user} = useContext(AuthContext);
+  const [username, setUsername] = useState();
+  useEffect(() => {
+    async function getUsername() {
+      const name = await AsyncStorage.getItem('@username');
+      setUsername(name);
+    }
+    getUsername();
+  }, []);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <ImageBackground
         style={styles.topImg}
         source={{
@@ -49,24 +59,36 @@ const ProfileScreen = () => {
           borderRadius={50}
           style={styles.avatar}></ImageBackground>
         <View style={{marginLeft: 'auto'}}>
-          <Text style={styles.whiteTextL}>Jeet Mukherjee</Text>
-          <Text style={styles.whiteText}>+91 8001268005</Text>
+          <Text style={styles.whiteTextL}>{username}</Text>
+          <Text style={styles.whiteText}>{user.phoneNumber}</Text>
         </View>
       </View>
 
       <View style={styles.iconContainer}>
-        <IconComponent title="Edit Info" iconName="edit" />
+        <IconComponent title="Edit Info" iconName="edit" route="EditInfo" />
         <IconComponent title="Wallet" iconName="credit-card" />
-        <IconComponent title="AttendC." iconName="calendar" />
-        <IconComponent title="History" iconName="history" />
+        <IconComponent
+          title="AttendC."
+          iconName="calendar"
+          route="Attendence"
+        />
+        <IconComponent
+          title="History"
+          iconName="history"
+          route="CurrentMembership"
+        />
       </View>
       <View style={styles.iconContainer}>
-        <IconComponent title="MemberS." iconName="bolt" />
+        <IconComponent
+          title="MemSh."
+          iconName="bolt"
+          route="CurrentMembership"
+        />
         <IconComponent title="Contact" iconName="whatsapp" />
-        <IconComponent title="Feedback" iconName="star" />
+        <IconComponent title="FeedB." iconName="star" />
         <IconComponent title="Logout" iconName="sign-out" func={handleLogout} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -117,9 +139,9 @@ const styles = StyleSheet.create({
     // marginLeft: 'auto',
   },
   iconContainer: {
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    justifyContent: 'space-between',
+    // paddingLeft: '5%',
+    // paddingRight: '5%',
+    justifyContent: 'space-evenly',
     flexDirection: 'row',
     marginTop: 10,
   },

@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -28,6 +29,29 @@ const MembershipFormScreen = ({route}) => {
   const [confirmMembership, setConfirmMembership] = useState(false);
 
   const navigation = useNavigation();
+  const handleNavigation = () => {
+    if (name && email && pincode && address && startingDate && endingDate) {
+      navigation.navigate('PaymentMethod', {
+        productDetails: data,
+        userDetails: {
+          name,
+          email,
+          pincode,
+          address,
+          phoneNumber: user.phoneNumber,
+        },
+        membershipDetails: {
+          startingDate: startingDate.toDateString(),
+          endingDate: endingDate.toDateString(),
+          duration: Math.floor(
+            (endingDate - startingDate) / (1000 * 60 * 60 * 24),
+          ),
+        },
+      });
+    } else {
+      alert('Fill The Form Poperly');
+    }
+  };
 
   const {user} = useContext(AuthContext);
 
@@ -35,6 +59,8 @@ const MembershipFormScreen = ({route}) => {
     <>
       {confirmMembership && <SuccessComponent vendorName={data.name} />}
       <ScrollView style={styles.container}>
+        <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View>
             <Text style={styles.whiteTextL}>MEMBERSHIP</Text>
@@ -82,7 +108,7 @@ const MembershipFormScreen = ({route}) => {
         </View>
 
         <View style={{marginTop: 30}}>
-          <Text style={styles.whiteText}>Gym Detaills</Text>
+          <Text style={styles.whiteText}>Service Detaills</Text>
           <Text style={styles.whiteTextL}>{data.name}</Text>
           <Text style={styles.whiteTextC}>{data.state}, INDIA</Text>
 
@@ -153,17 +179,7 @@ const MembershipFormScreen = ({route}) => {
           <Text style={styles.whiteText}>Rs. {data.membership_cost} /-</Text>
         </View>
 
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() =>
-            // console.log({
-            //   name,
-            //   email,
-            //   pincode,
-            //   address,
-            // })
-            setConfirmMembership(true)
-          }>
+        <TouchableOpacity style={styles.btn} onPress={handleNavigation}>
           <Text style={styles.btnText}>Confirm Membership</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -219,7 +235,7 @@ const styles = StyleSheet.create({
   },
   imgHeight: {
     minHeight: 200,
-    width: Dimensions.get('window').width / 2.3,
+    width: Dimensions.get('window').width / 2.2,
   },
   btn: {
     backgroundColor: '#ffae7a',

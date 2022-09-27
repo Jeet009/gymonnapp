@@ -20,6 +20,11 @@ import {ScrollContext} from '../context/ScrollContext';
 import {AuthContext} from '../context/AuthContext';
 import LoginScreen from '../screens/AuthScreen/LoginScreen';
 import {LocationContext} from '../context/LocationContext';
+import PaymentMethodScreen from '../screens/PaymentMethodScreen';
+import CurrentMembership from '../screens/MembershipScreen/CurrentMembership';
+import MembershipDetails from '../screens/MembershipScreen/MembershipDetails';
+import EditInfo from '../screens/ProfileScreen/EditInfo';
+import Attendence from '../screens/MembershipScreen/Attendence';
 
 const Stack = createNativeStackNavigator();
 
@@ -147,8 +152,24 @@ const StackRoute = () => {
             <Stack.Screen
               name="MembershipForm"
               component={MembershipFormScreen}
+              options={{headerShown: false}}
             />
             <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen
+              name="PaymentMethod"
+              component={PaymentMethodScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="CurrentMembership"
+              component={CurrentMembership}
+            />
+            <Stack.Screen
+              name="MembershipDetails"
+              component={MembershipDetails}
+            />
+            <Stack.Screen name="EditInfo" component={EditInfo} />
+            <Stack.Screen name="Attendence" component={Attendence} />
           </Stack.Navigator>
         </NavigationContainer>
       ) : (

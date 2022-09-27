@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   imgHeight: {
     minHeight: 200,
-    width: Dimensions.get('window').width / 2.3,
+    width: Dimensions.get('window').width / 2.2,
     borderRadius: 10,
     backgroundColor: '#666666',
   },

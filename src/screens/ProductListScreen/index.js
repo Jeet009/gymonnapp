@@ -57,6 +57,8 @@ const ProductListScreen = ({route}) => {
   };
 
   useEffect(() => {
+    isScrolling && handleScrollingState(false);
+
     fetchAllServicesByCoords(dbParam).then(res => {
       setServices(res);
       handleLoadingState(false);

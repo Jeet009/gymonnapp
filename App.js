@@ -2,6 +2,8 @@ import React, {useContext} from 'react';
 import {AuthProvider} from './src/context/AuthContext';
 import {LoadingProvider} from './src/context/LoadingContext';
 import {LocationProvider} from './src/context/LocationContext';
+import {MembershipProvider} from './src/context/MembershipContext';
+import {ProfileProvider} from './src/context/ProfileContext';
 import {ScrollProvider} from './src/context/ScrollContext';
 import {ServiceProvider} from './src/context/ServiceContext';
 
@@ -12,11 +14,15 @@ const App = () => {
     <LoadingProvider>
       <AuthProvider>
         <LocationProvider>
-          <ServiceProvider>
-            <ScrollProvider>
-              <StackRoute />
-            </ScrollProvider>
-          </ServiceProvider>
+          <ProfileProvider>
+            <MembershipProvider>
+              <ServiceProvider>
+                <ScrollProvider>
+                  <StackRoute />
+                </ScrollProvider>
+              </ServiceProvider>
+            </MembershipProvider>
+          </ProfileProvider>
         </LocationProvider>
       </AuthProvider>
     </LoadingProvider>
